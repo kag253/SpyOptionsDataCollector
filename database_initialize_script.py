@@ -16,6 +16,7 @@ def main(db_file):
         ask real NOT NULL,
         bidsize int NOT NULL,
         asksize int NOT NULL,
+        stock_quote real NOT NULL,
         PRIMARY KEY (symbol, quote_timestamp))
     """
 

@@ -8,7 +8,7 @@ from email.message import EmailMessage
 
 ############################################################
 # This simple program retrieves and stores SPY option chains
-# with expirations that are two weeks out.  The program uses
+# with expirations that are six weeks out.  The program uses
 # Tradier for the data.
 ############################################################
 
@@ -32,7 +32,7 @@ class SpyDataCollector:
 
 	def get_expiration_dates_to_query(self):
 		""" 
-			Returns the expiration dates to query for SPY for two weeks out. 
+			Returns the expiration dates to query for SPY for six weeks out. 
 			SPY has expiration dates every Monday, Wednesday, and Friday, so 
 			this function only returns those dates.
 		"""
@@ -40,7 +40,7 @@ class SpyDataCollector:
 		# Monday = 0, Wednesday = 2, Friday = 4
 		expiration_weekday_values = [0, 2, 4] 
 
-		days_out = 14
+		days_out = 42 # 6 weeks * 7 days per week = 42 days
 		expiration_dates_to_query = []
 		current_date = date.today()
 		for i in range(days_out):
@@ -74,7 +74,10 @@ class SpyDataCollector:
 		    print('Something went wrong...')
 		
 
-
+    def get_price_quote(self):
+    	""" Retrieves the current SPY quote """
+    	pass
+    	
 	def retrieve_options_data(self):
 		""" Retrieves the options data from Tradier """
 		
@@ -106,6 +109,7 @@ class SpyDataCollector:
 		shaped_options_data = []
 
 		for option_obj in options_data:
+			print(option_obj)
 			new_option_tuple = (
 				option_obj['symbol'],
 				option_obj['root_symbol'],
@@ -148,7 +152,7 @@ class SpyDataCollector:
 
 
 if __name__== "__main__":
-	config_filename = './config.json'
+	config_filename = ".\\config.json"
 	collector = SpyDataCollector(config_filename)
 	collector.run()
 
